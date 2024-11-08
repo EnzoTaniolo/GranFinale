@@ -1,24 +1,33 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-    <title>Fintech - Login</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./resources/css/bootstrap.css">
-    <link rel="stylesheet" href="./resources/index.css">
+    <title>Fintech - Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="login-card">
-    <h1>Fintech</h1>
-    <p>Olá, seja bem vindo!</p>
-    <form>
-        <input type="email" placeholder="email" required>
-        <input type="password" placeholder="senha" required>
-        <button type="submit" class="btn btn-dark">Entrar</button>
-        <button type="button" class="btn btn-outline-dark mt-2">Criar Conta</button>
-    </form>
+<body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
+
+<div class="card shadow-sm p-4" style="max-width: 400px;">
+    <div class="card-body text-center">
+        <h2 class="card-title">Fintech</h2>
+        <p class="text-muted">Olá, seja bem vindo!</p>
+        <form action="dashboard.jsp" method="post">
+            <div class="form-group">
+                <input type="text" name="cpf" class="form-control" placeholder="CPF" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="senha" class="form-control" placeholder="Senha" required>
+            </div>
+            <button type="submit" class="mt-8 btn btn-dark btn-block">Entrar</button>
+        </form>
+    </div>
 </div>
-<script src="resources/js/bootstrap.bundle.js"></script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
