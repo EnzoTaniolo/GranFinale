@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/login")
+@WebServlet("/index")
 public class LoginServlet extends HttpServlet {
     private UsuarioDao usuarioDao;
 
@@ -42,13 +42,16 @@ public class LoginServlet extends HttpServlet {
 
         if (usuario == null) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
         }
 
+        assert usuario != null;
         if(usuario.verificarSenha(senha)) {
             HttpSession session = req.getSession();
             session.setAttribute("usuario", usuario);
 
-            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.sendRedirect(req.getContextPath() + "/protected/dashboard.jsp");
+            return;
         }
         resp.sendError(HttpServletResponse.SC_FORBIDDEN);
     }

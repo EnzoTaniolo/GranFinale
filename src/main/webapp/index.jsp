@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -13,7 +15,7 @@
     <div class="card-body text-center">
         <h2 class="card-title">Fintech</h2>
         <p class="text-muted">Olá, seja bem vindo!</p>
-        <form action="dashboard.jsp" method="post">
+        <form action="index" method="post">
             <div class="form-group">
                 <input type="text" name="cpf" class="form-control" placeholder="CPF" required>
             </div>

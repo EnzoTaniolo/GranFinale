@@ -5,14 +5,12 @@ public class ContaBancaria {
     private int cdUsuario;
     private String dsTipo;
     private double saldo;
-    private int cdBanco;
 
-    public ContaBancaria(int cdContaBancaria, int cdUsuario, String dsTipo, double saldo, int banco) {
+    public ContaBancaria(int cdContaBancaria, int cdUsuario, String dsTipo, double saldo, int codigoBanco) {
         this.cdContaBancaria = cdContaBancaria;
         this.cdUsuario = cdUsuario;
         this.dsTipo = dsTipo;
         this.saldo = saldo;
-        this.cdBanco = banco;
     }
 
 
@@ -46,13 +44,5 @@ public class ContaBancaria {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
-    }
-
-    public int getCdBanco() {
-        return cdBanco;
-    }
-
-    public void setCdBanco(int cdBanco) {
-        this.cdBanco = cdBanco;
     }
 }

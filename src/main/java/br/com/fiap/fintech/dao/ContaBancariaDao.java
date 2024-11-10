@@ -14,12 +14,11 @@ public class ContaBancariaDao {
     }
 
     public void cadastrarConta(ContaBancaria conta) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_conta_bancaria (cd_conta_bancaria, cd_usuario, ds_tipo, vl_saldo, cd_banco) VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_conta_bancaria (id, codigo_conta, codigo_usuario, tipo_conta, saldo) VALUES (SEQ, ?, ?, ?, ?)");
         stm.setInt(1, conta.getCdContaBancaria());
         stm.setInt(2, conta.getCdUsuario());
         stm.setString(3, conta.getDsTipo());
         stm.setDouble(4, conta.getSaldo());
-        stm.setInt(5, conta.getCdBanco());
         stm.executeUpdate();
     }
     public void fecharConexao() throws SQLException {

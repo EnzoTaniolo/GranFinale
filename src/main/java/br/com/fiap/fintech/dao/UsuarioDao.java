@@ -41,7 +41,7 @@ public class UsuarioDao {
         String nm_usuario = result.getString("nome");
         String nr_cpf = result.getString("cpf");
         String email_usuario = result.getString("email");
-        Date dt_nascimento = result.getDate("dt_nascimento");
+        Date dt_nascimento = result.getDate("data_nascimento");
         String senha_usuario = result.getString("senha");
 
         return new Usuario(nm_usuario, nr_cpf, email_usuario, senha_usuario, dt_nascimento);
@@ -58,11 +58,11 @@ public class UsuarioDao {
     }
 
     public Usuario verificarUsuario(String cpf) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT 1 FROM Tb_Cliente WHERE cpf = ?");
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM Tb_cliente WHERE cpf = ?");
         stm.setString(1, cpf);
 
         ResultSet result = stm.executeQuery();
-        if (result == null){
+        if (!result.next()){
            return null;
         }
 

@@ -1,15 +1,14 @@
 package br.com.fiap.fintech.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class Usuario {
-   private int id;
    private String nome;
    private String cpf;
    private String email;
    private String senha;
    private Date dtNascimento;
+   private ContaBancaria contaBancaria;
 
    public Usuario(String nome, String cpf, String email, String senha, Date dtNascimento) {
       this.nome = nome;
@@ -19,6 +18,10 @@ public class Usuario {
       this.dtNascimento = dtNascimento;
    }
 
+    public void criarContaBancaria(String tipoConta, int codigoBanco){
+       if(contaBancaria == null){
+       }
+    }
     public String getNome() {
         return nome;
     }
