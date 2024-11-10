@@ -7,10 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransacoesDao {
+public class TransacaoDao {
 
     private Connection conexao;
-    public TransacoesDao() throws SQLException {
+    public TransacaoDao() throws SQLException {
         conexao = ConnectionFactory.getConnection();
     }
 
