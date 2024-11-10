@@ -25,12 +25,13 @@ public class ConnectionFactory {
 
             connection = DriverManager.getConnection(
                     "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL",
-                    "USUARIO",
-                    "SENHA");
+                    "RM557167",
+                    "120799");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return connection;
     }
 

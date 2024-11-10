@@ -14,9 +14,8 @@ public class BancoDao {
     }
 
     public void cadastrar(Banco banco) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_banco (cd_banco, nm_banco) VALUES (?, ?)");
+        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_banco (cd_banco) VALUES (?)");
         stm.setInt(1, banco.getCdBanco());
-        stm.setString(2, banco.getNmBanco());
         stm.executeUpdate();
     }
     public void fecharConexao() throws SQLException {

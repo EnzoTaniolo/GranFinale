@@ -1,31 +1,23 @@
 package br.com.fiap.fintech.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Usuario {
-   private int codigo;
+   private int id;
    private String nome;
    private String cpf;
    private String email;
    private String senha;
    private Date dtNascimento;
 
-   public Usuario(int codigo, String nome, String cpf, String email, String senha, Date dtNascimento) {
-      this.codigo = codigo;
+   public Usuario(String nome, String cpf, String email, String senha, Date dtNascimento) {
       this.nome = nome;
       this.cpf = cpf;
       this.email = email;
       this.senha = senha;
       this.dtNascimento = dtNascimento;
    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
 
     public String getNome() {
         return nome;

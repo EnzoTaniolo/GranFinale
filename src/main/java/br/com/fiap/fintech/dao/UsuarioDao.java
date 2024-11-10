@@ -5,9 +5,14 @@ import br.com.fiap.fintech.model.Transacao;
 import br.com.fiap.fintech.model.Usuario;
 
 import javax.xml.transform.Result;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UsuarioDao {
 
@@ -16,17 +21,16 @@ public class UsuarioDao {
         conexao = ConnectionFactory.getConnection();
     }
 
-    public void cadastrarUsuario(Usuario usuario) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_usuario(cd_usuario, nm_usuario, nr_cpf, email_usuario, senha_usuario, dt_nascimento) VALUES (?, ?, ?, ?, ?, ?)");
+    public void cadastrarUsuario(String nome, String cpf, String email, String senha, Date data_nascimento) throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("INSERT INTO Tb_cliente(id, nome, cpf, email, senha, data_nascimento) VALUES (SEQ_CLIENTE.NEXTVAL, ?, ?, ?, ?, ?)");
 
-        stm.setInt(1, usuario.getCodigo());
-        stm.setString(2, usuario.getNome());
-        stm.setString(3, usuario.getCpf());
-        stm.setString(4, usuario.getEmail());
+        stm.setString(1, nome);
+        stm.setString(2, cpf);
+        stm.setString(3, email);
+        stm.setString(4, senha);
 
-        stm.setString(6, usuario.getSenha());
+        stm.setDate(5, new Date(data_nascimento.getTime()));
 
-        stm.setDate(5, new Date(usuario.getDtNascimento().getTime()));
         stm.executeUpdate();
     }
     public void fecharConexao() throws SQLException {
@@ -34,18 +38,17 @@ public class UsuarioDao {
     }
 
     private Usuario parseUsuario(ResultSet result) throws SQLException {
-        int cd_usuario = result.getInt("cd_usuario");
-        String nm_usuario = result.getString("nm_usuario");
-        String nr_cpf = result.getString("nr_cpf");
-        String email_usuario = result.getString("email_usuario");
+        String nm_usuario = result.getString("nome");
+        String nr_cpf = result.getString("cpf");
+        String email_usuario = result.getString("email");
         Date dt_nascimento = result.getDate("dt_nascimento");
-        String senha_usuario = result.getString("senha_usuario");
+        String senha_usuario = result.getString("senha");
 
-        return new Usuario(cd_usuario, nm_usuario, nr_cpf, email_usuario, senha_usuario, dt_nascimento);
+        return new Usuario(nm_usuario, nr_cpf, email_usuario, senha_usuario, dt_nascimento);
     }
 
     public List<Usuario> listarUsuario() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_usuario");
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM Tb_Cliente");
         ResultSet result = stm.executeQuery();
         List<Usuario> lista = new ArrayList<>();
         while (result.next()){
@@ -55,7 +58,7 @@ public class UsuarioDao {
     }
 
     public Usuario verificarUsuario(String cpf) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT 1 FROM t_usuario WHERE nr_cpf = ?");
+        PreparedStatement stm = conexao.prepareStatement("SELECT 1 FROM Tb_Cliente WHERE cpf = ?");
         stm.setString(1, cpf);
 
         ResultSet result = stm.executeQuery();

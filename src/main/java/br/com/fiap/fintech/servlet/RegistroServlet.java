@@ -8,13 +8,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/registro")
+public class RegistroServlet extends HttpServlet {
     private UsuarioDao usuarioDao;
 
     @Override
@@ -30,26 +33,29 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cpf = req.getParameter("cpf");
+        String nome = req.getParameter("nome");
+        String email = req.getParameter("email");
         String senha = req.getParameter("senha");
+        String cpf = req.getParameter("cpf");
 
-        Usuario usuario;
+        SimpleDateFormat date_format = new SimpleDateFormat("dd-MM-yyyy");
+        Date data_nascimento;
         try {
-            usuario = usuarioDao.verificarUsuario(cpf);
-        } catch (SQLException e) {
+            data_nascimento = date_format.parse(req.getParameter("data_nascimento"));
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
-        if (usuario == null) {
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+
+        try {
+                usuarioDao.cadastrarUsuario(nome, cpf, email, senha, new java.sql.Date(data_nascimento.getTime()));
+        } catch (SQLException e) {
+
+            //Fazer tela de erro
+            resp.sendRedirect(req.getContextPath() + "/erro");
+            throw new RuntimeException(e);
         }
 
-        if(usuario.verificarSenha(senha)) {
-            HttpSession session = req.getSession();
-            session.setAttribute("usuario", usuario);
-
-            resp.setStatus(HttpServletResponse.SC_OK);
-        }
-        resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+        resp.sendRedirect(req.getContextPath() + "/index");
     }
 }
